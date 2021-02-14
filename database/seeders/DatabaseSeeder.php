@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Participant;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -23,5 +24,11 @@ class DatabaseSeeder extends Seeder
           'created_at' => Carbon::now(),
           'updated_at' => Carbon::now(),
       ]);
+
+        Participant::create([
+            'name' => 'Ruben',
+
+        ]);
+
     }
 }

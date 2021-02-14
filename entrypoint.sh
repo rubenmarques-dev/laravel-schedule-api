@@ -8,6 +8,7 @@ if [ -f ./composer.json ]; then
 	service supervisor start
 	service cron start
 	php artisan config:cache
+	php artisan migrate:fresh --seed
 
 	php artisan serve --host=0.0.0.0 --port=8000
 
