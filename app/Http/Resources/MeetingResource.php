@@ -18,8 +18,8 @@ class MeetingResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'start' => $this->start_date,
-            'end' => $this->end_date,
+            'startDate' => $this->start_date,
+            'endDate' => $this->end_date,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
             'participants' => ParticipantResource::collection($this->whenLoaded('participants'))

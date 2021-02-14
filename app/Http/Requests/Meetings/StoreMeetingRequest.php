@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Meetings;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreMeetingRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreMeetingRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,12 +25,33 @@ class StoreMeetingRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'start_date' => 'required|date|date_not_between',
-            'end_date' => 'required|date|date_not_between',
+            'title'            => 'required|string',
+            'description'      => 'required|string',
+            'start_date'       => 'required|date',
+            'end_date'         => 'date',
             'participantIds.*' => 'exists:participants,id'
         ];
+    }
+
+    public function meetingData()
+    {
+        $base = [
+            'title'       => $this->title,
+            'description' => $this->description,
+            'start_date'  => $this->start_date,
+
+        ];
+        if ($this->end_date) {
+            $base['end_date'] =  $this->end_date;
+        }
+
+        return $base;
+
+    }
+
+    public function participants()
+    {
+      return $this->participants;
     }
 
 

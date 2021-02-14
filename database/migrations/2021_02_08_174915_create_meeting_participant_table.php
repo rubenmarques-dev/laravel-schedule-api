@@ -15,7 +15,7 @@ class CreateMeetingParticipantTable extends Migration
     {
         Schema::create('meeting_participant', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('meeting_id')->references('id')->on('users');
+            $table->foreignId('meeting_id')->references('id')->on('meetings');
             $table->foreignId('participant_id')->references('id')->on('participants');
             $table->timestamps();
         });

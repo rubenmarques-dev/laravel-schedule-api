@@ -14,10 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+
+    'middleware' => 'api',
+    'prefix'     => 'auth',
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::middleware(['jwt.refresh','jwt.auth'])->post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
 });
 
+
+Route::middleware(['jwt.auth'])->group(function () {
 Route::apiResource('meetings', 'MeetingsController')->only([ 'index','show','store', 'update']);
-Route::apiResource('participants', 'ParticipantsController')->only([ 'index','show','store', 'update']);
-Route::apiResource('entities/{entity}/participants', 'MeetingParticipantsController')->only([ 'index','show','store', 'update']);
+Route::apiResource('participants', 'ParticipantsController')->only([ 'index','store']);
+});
+

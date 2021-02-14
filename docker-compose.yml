@@ -1,5 +1,16 @@
 version: '2.4'
+
 services:
+  cocus:
+    image: macedo/laravel-php:7.4
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - mysql
+    networks:
+      - cocus-network
+    ports:
+      - "8000:8000"
 
   mysql:
     image: mysql:5.7
@@ -12,6 +23,13 @@ services:
       - "MYSQL_PASSWORD=secret"
     ports:
       - "3333:3306"
+    networks:
+      - cocus-network
+
 
 volumes:
   cocusData:
+
+networks:
+  cocus-network:
+    name: cocus-network
