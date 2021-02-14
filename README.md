@@ -2,7 +2,7 @@
 
 ## Project setup / run
 ```
-docker composer up -d
+docker-compose up -d
 ```
 
 ### Tips
