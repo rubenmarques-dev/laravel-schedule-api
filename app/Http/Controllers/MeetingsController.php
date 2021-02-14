@@ -7,6 +7,7 @@ use App\Http\Requests\Meetings\UpdateMeetingRequest;
 use App\Http\Resources\MeetingResource;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MeetingsController extends Controller
 {
@@ -39,6 +40,11 @@ class MeetingsController extends Controller
         $meeting->participants()->sync($participants);
         $meeting->refresh();
         return new MeetingResource($meeting->load('participants'));
+    }
+
+    public function destroy(Meeting $meeting){
+        $meeting->delete();
+        return response()->json()->setStatusCode(Response::HTTP_NO_CONTENT);
     }
 
 }

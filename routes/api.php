@@ -30,7 +30,7 @@ Route::group([
 
 
 Route::middleware(['jwt.auth'])->group(function () {
-Route::apiResource('meetings', 'MeetingsController')->only([ 'index','show','store', 'update']);
+Route::apiResource('meetings', 'MeetingsController')->only([ 'index','show','store', 'update', 'destroy']);
 Route::apiResource('participants', 'ParticipantsController')->only([ 'index','store']);
 });
 
