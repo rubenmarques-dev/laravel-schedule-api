@@ -5,12 +5,9 @@ if [ -f ./composer.json ]; then
 	  composer install
 	fi
 
-	service supervisor start
-	service cron start
 	php artisan config:cache
-	php artisan migrate:fresh --seed
-
-	php artisan serve --host=0.0.0.0 --port=8000
+    php artisan wait_database_alive && php artisan migrate --seed
+    php artisan serve --host=0.0.0.0 --port=8000
 
 else
 #	laravel new project
