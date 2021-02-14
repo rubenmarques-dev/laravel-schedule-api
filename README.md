@@ -9,8 +9,8 @@ docker-compose up -d
 ```
 The container entrypoint run:
 	php artisan config:cache
-	php artisan migrate:fresh --seed
+    php artisan wait_database_alive && php artisan migrate --seed
 
-This will update the application accordling to the .env file and reset/seed the database EVERYTIME the application start.
+This will update the application accordling to the .env file 
 ```
 
